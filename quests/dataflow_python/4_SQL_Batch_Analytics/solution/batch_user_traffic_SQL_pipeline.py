@@ -151,7 +151,7 @@ def run():
            write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE
       ))
 
-    (logs | 'PerUserAggregations' >> SqlTransform(query, dialect='zetasql')
+    (logs | 'PerUserAggregations' >> SqlTransform(query)
           | 'AggToDict' >> beam.Map(lambda row : row._asdict())
           | 'WriteAggToBQ' >> beam.io.WriteToBigQuery(
             agg_table_name,

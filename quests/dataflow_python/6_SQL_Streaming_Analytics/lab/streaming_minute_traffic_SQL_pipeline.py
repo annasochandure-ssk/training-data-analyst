@@ -99,7 +99,7 @@ def run():
 
     (p | 'ReadFromPubSub' >> # TODO: Read from Pub/Sub Topic
        | 'ParseAndGetEventTimestamp' >> # TODO: Apply ParseAndGetEventTimestamp custom PTransform with output type CommonLog
-       | "CountPerMinute" >> SqlTransform(query, dialect='zetasql')
+       | "CountPerMinute" >> SqlTransform(query)
        | "ConvertToDict" >> beam.Map(to_dict)
        | 'WriteAggToBQ' >> beam.io.WriteToBigQuery(
             table_name,

@@ -142,7 +142,7 @@ def run():
     logs | 'RawToDict' >> beam.Map(lambda row : row._asdict())
          | 'WriteRawToBQ' >> # TODO: Write Transform to write raw data to BigQuery
 
-    (logs | 'PerUserAggregations' >> # TODO: Apply SqlTransform using ZetaSQL Dialect
+    (logs | 'PerUserAggregations' >> # TODO: Apply SqlTransform using query
           | 'AggToDict' >> beam.Map(lambda row : row._asdict())
           | 'WriteAggToBQ' >> beam.io.WriteToBigQuery(
             agg_table_name,

@@ -109,7 +109,7 @@ def run():
 
     (p | 'ReadFromPubSub' >> beam.io.ReadFromPubSub(input_topic)
        | 'ParseAndGetEventTimestamp' >> ParseAndGetEventTimestamp().with_output_types(CommonLog)
-       | "CountPerMinute" >> SqlTransform(query, dialect='zetasql')
+       | "CountPerMinute" >> SqlTransform(query)
        | "ConvertToDict" >> beam.Map(to_dict)
        | 'WriteAggToBQ' >> beam.io.WriteToBigQuery(
             table_name,
