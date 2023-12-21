@@ -104,7 +104,7 @@ def run():
     (p | 'ReadFromGCS' >> beam.io.ReadFromText(input_path)
        | 'ParseJson' >> beam.Map(parse_json).with_output_types(CommonLog)
        | 'FormatTimestamp' >> beam.Map(format_timestamp).with_output_types(CommonLog)
-       | "CountPerMinute" >> SqlTransform(query, dialect='zetasql')
+       | "CountPerMinute" >> SqlTransform(query)
        | "ConvertToDict" >> beam.Map(to_dict)
        | 'WriteToBQ' >> beam.io.WriteToBigQuery(
             table_name,
